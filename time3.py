@@ -2,6 +2,14 @@ import streamlit as st
 from datetime import datetime
 from zhdate import ZhDate
 
+# 嘗試匯入 zhdate，如果沒安裝就自動裝
+try:
+    from zhdate import ZhDate
+except ImportError:
+    print("偵測到尚未安裝 zhdate，正在安裝中...")
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "zhdate"])
+    from zhdate import ZhDate
+
 # 六個結果
 results = ["大安", "流連", "速喜", "赤口", "小吉", "空亡"]
 
