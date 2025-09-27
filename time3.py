@@ -40,13 +40,13 @@ def calculate_result(lunar_month, lunar_day, chinese_hour):
     return results[index]
 
 # Streamlit UI
-st.title("掐指一算 🧧")
+st.title("掐指一算")
 
 if st.button("開始科學預測"):
     now = datetime.now()
     lunar = ZhDate.from_datetime(now)
-    lunar_month = lunar.month
-    lunar_day = lunar.day
+    lunar_month = lunar.lunar_month
+    lunar_day = lunar.lunar_day
     chinese_hour = get_chinese_hour(now.hour)
 
     result = calculate_result(lunar_month, lunar_day, chinese_hour)
