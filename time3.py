@@ -72,10 +72,12 @@ explanations = {
 }
 
 # 假設 result 是算出來的卦象
-result = calculate_result(lunar.lunar_month, lunar.lunar_day, chinese_hour)
+lunar = ZhDate.from_datetime(now)
+lunar_month = lunar.month
+lunar_day = lunar.day
 
-st.write(f"**今日卦象**：{result}")
-st.write(f"**解釋**：{explanations[result]}")
+result = calculate_result(lunar_month, lunar_day, chinese_hour)
+
 
 
 # 網頁下方說明文字
