@@ -56,6 +56,7 @@ if st.button("開始算卦"):
     chinese_hour = get_chinese_hour(now.hour)
     result = calculate_result(lunar.lunar_month, lunar.lunar_day, chinese_hour)
 
-    st.write(f"**國曆**：{now.strftime('%Y-%m-%d %H:%M:%S')}")
-    st.write(f"**農曆**：{lunar.lunar_year}年{lunar.lunar_month}月{lunar.lunar_day}日 {chinese_hour}")
+#目前隱藏不必要的資訊
+    #st.write(f"**國曆**：{now.strftime('%Y-%m-%d %H:%M:%S')}")
+    #st.write(f"**農曆**：{lunar.lunar_year}年{lunar.lunar_month}月{lunar.lunar_day}日 {chinese_hour}")
     st.write(f"**今日卦象**：{result}")
