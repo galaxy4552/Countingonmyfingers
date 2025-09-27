@@ -50,7 +50,7 @@ def calculate_result(lunar_month, lunar_day, chinese_hour):
 # Streamlit 網頁 UI
 st.title("掐指一算")
 
-if st.button("開始算卦"):
+if st.button("開始科學預測"):
     now = datetime.now()
     lunar = ZhDate.from_datetime(now)
     chinese_hour = get_chinese_hour(now.hour)
