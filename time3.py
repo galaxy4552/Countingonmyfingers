@@ -5,6 +5,16 @@ from zhdate import ZhDate
 # 六種結果
 results = ["大安", "流連", "速喜", "赤口", "小吉", "空亡"]
 
+# 六種卦象解釋
+explanations = {
+    "大安": "大安事事昌，求財在坤方，失物去不遠，宅舍保安康，行人身未動，病者主無妨，將軍回田野，仔細更推詳",
+    "流連": "留連事難成，求謀日未明，官事凡宜緩，去者未回程，失物南方見，急討方心稱，更須防口舌，人口且平平",
+    "速喜": "速喜喜來臨，求財向南行，失物申未午，逢人路上尋，官事有福德，病者無禍侵，田宅六畜吉，行人有信音",
+    "赤口": "赤口主口舌，官非切宜防，失物宜速討，行人有驚慌，六畜多作怪，病者出西方，更須防咀咒，誠恐染瘟皇",
+    "小吉": "小吉最吉昌，路上好商量，陰人來報喜，失物在坤方，行人即便至，交關甚是強，凡事皆和合，病者叩窮蒼",
+    "空亡": "空亡事不祥，陰人多乖張，求財無利益，行人有災殃，失物尋不見，官事有刑傷，病人逢暗鬼，解禳保安康"
+}
+
 # 農曆時辰對應表
 chinese_hours = [
     ("子時", 1), ("丑時", 2), ("寅時", 3), ("卯時", 4),
@@ -45,26 +55,21 @@ st.title("掐指一算")
 if st.button("開始科學預測"):
     now = datetime.now()
     lunar = ZhDate.from_datetime(now)
-    lunar_month = lunar.lunar_month
-    lunar_day = lunar.lunar_day
-    chinese_hour = get_chinese_hour(now.hour)
+    
+    try:
+        lunar_month = lunar.lunar_month
+        lunar_day = lunar.lunar_day
+    except AttributeError:
+        st.error("請確認 zhdate 套件版本，建議升級至最新版。")
+    else:
+        chinese_hour = get_chinese_hour(now.hour)
+        result = calculate_result(lunar_month, lunar_day, chinese_hour)
 
-    result = calculate_result(lunar_month, lunar_day, chinese_hour)
+        st.write(f"**國曆**：{now.strftime('%Y-%m-%d %H:%M:%S')}")
+        st.write(f"**農曆**：{lunar.lunar_year}年{lunar_month}月{lunar_day}日 {chinese_hour}")
+        st.write(f"**今日卦象**：{result}")
+        st.write(f"**解釋**：{explanations.get(result, '無對應解釋')}")
 
-    st.write(f"**國曆**：{now.strftime('%Y-%m-%d %H:%M:%S')}")
-    st.write(f"**農曆**：{lunar.year}年{lunar_month}月{lunar_day}日 {chinese_hour}")
-    st.write(f"**今日卦象**：{result}")
-    st.write(f"**解釋**：{explanations.get(result, '無對應解釋')}")
-
-# 六種卦象解釋
-explanations = {
-    "大安": "大安事事昌，求財在坤方，失物去不遠，宅舍保安康，行人身未動，病者主無妨，將軍回田野，仔細更推詳",
-    "流連": "留連事難成，求謀日未明，官事凡宜緩，去者未回程，失物南方見，急討方心稱，更須防口舌，人口且平平",
-    "速喜": "速喜喜來臨，求財向南行，失物申未午，逢人路上尋，官事有福德，病者無禍侵，田宅六畜吉，行人有信音",
-    "赤口": "赤口主口舌，官非切宜防，失物宜速討，行人有驚慌，六畜多作怪，病者出西方，更須防咀咒，誠恐染瘟皇",
-    "小吉": "小吉最吉昌，路上好商量，陰人來報喜，失物在坤方，行人即便至，交關甚是強，凡事皆和合，病者叩窮蒼",
-    "空亡": "空亡事不祥，陰人多乖張，求財無利益，行人有災殃，失物尋不見，官事有刑傷，病人逢暗鬼，解禳保安康"
-}
 
 # 網頁下方說明文字
 st.markdown("""
