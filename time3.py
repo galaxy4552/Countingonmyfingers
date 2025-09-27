@@ -52,7 +52,6 @@ st.title("掐指一算")
 
 if st.button("開始科學預測"):
     from datetime import datetime
-     now = datetime.now()
     lunar = ZhDate.from_datetime(now)
     lunar_month = lunar.month
     lunar_day = lunar.day
