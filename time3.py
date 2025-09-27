@@ -51,10 +51,18 @@ def calculate_result(lunar_month, lunar_day, chinese_hour):
 st.title("掐指一算")
 
 if st.button("開始科學預測"):
-    now = datetime.now()
+     now = datetime.now()
     lunar = ZhDate.from_datetime(now)
+    lunar_month = lunar.month
+    lunar_day = lunar.day
     chinese_hour = get_chinese_hour(now.hour)
-    result = calculate_result(lunar.lunar_month, lunar.lunar_day, chinese_hour)
+
+    result = calculate_result(lunar_month, lunar_day, chinese_hour)
+
+    st.write(f"**國曆**：{now.strftime('%Y-%m-%d %H:%M:%S')}")
+    st.write(f"**農曆**：{lunar.year}年{lunar_month}月{lunar_day}日 {chinese_hour}")
+    st.write(f"**今日卦象**：{result}")
+    st.write(f"**解釋**：{explanations.get(result, '無對應解釋')}")
 
 #目前隱藏不必要的資訊
     #st.write(f"**國曆**：{now.strftime('%Y-%m-%d %H:%M:%S')}")
@@ -70,15 +78,6 @@ explanations = {
     "小吉": "小吉最吉昌，路上好商量，陰人來報喜，失物在坤方，行人即便至，交關甚是強，凡事皆和合，病者叩窮蒼",
     "空亡": "空亡事不祥，陰人多乖張，求財無利益，行人有災殃，失物尋不見，官事有刑傷，病人逢暗鬼，解禳保安康"
 }
-
-# 假設 result 是算出來的卦象
-lunar = ZhDate.from_datetime(now)
-lunar_month = lunar.month
-lunar_day = lunar.day
-
-result = calculate_result(lunar_month, lunar_day, chinese_hour)
-
-
 
 # 網頁下方說明文字
 st.markdown("""
