@@ -48,7 +48,7 @@ def calculate_result(lunar_month, lunar_day, chinese_hour):
     return results[index]
 
 # Streamlit 網頁 UI
-st.title("掐指一算 🧧")
+st.title("掐指一算")
 
 if st.button("開始算卦"):
     now = datetime.now()
