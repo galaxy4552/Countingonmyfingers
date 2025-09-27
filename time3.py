@@ -2,18 +2,10 @@ import streamlit as st
 from datetime import datetime
 from zhdate import ZhDate
 
-# 嘗試匯入 zhdate，如果沒安裝就自動裝
-try:
-    from zhdate import ZhDate
-except ImportError:
-    print("偵測到尚未安裝 zhdate，正在安裝中...")
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "zhdate"])
-    from zhdate import ZhDate
-
-# 六個結果
+# 六種結果
 results = ["大安", "流連", "速喜", "赤口", "小吉", "空亡"]
 
-# 農曆時辰表（子=1 丑=2 ... 亥=12）
+# 農曆時辰對應表
 chinese_hours = [
     ("子時", 1), ("丑時", 2), ("寅時", 3), ("卯時", 4),
     ("辰時", 5), ("巳時", 6), ("午時", 7), ("未時", 8),
@@ -47,13 +39,11 @@ def calculate_result(lunar_month, lunar_day, chinese_hour):
     index = (index + (hour_num - 1) % 6) % 6
     return results[index]
 
-# Streamlit 網頁 UI
-st.title("掐指一算")
+# Streamlit UI
+st.title("掐指一算 🧧")
 
 if st.button("開始科學預測"):
-    from datetime import datetime
     now = datetime.now()
-    print(type(now))  # 必須是 <class 'datetime.datetime'>
     lunar = ZhDate.from_datetime(now)
     lunar_month = lunar.month
     lunar_day = lunar.day
@@ -61,10 +51,9 @@ if st.button("開始科學預測"):
 
     result = calculate_result(lunar_month, lunar_day, chinese_hour)
 
-#目前隱藏不必要的資訊
-    #st.write(f"**國曆**：{now.strftime('%Y-%m-%d %H:%M:%S')}")
-    #st.write(f"**農曆**：{lunar.year}年{lunar_month}月{lunar_day}日 {chinese_hour}")
-    st.write(f"**預測結果**：{result}")
+    st.write(f"**國曆**：{now.strftime('%Y-%m-%d %H:%M:%S')}")
+    st.write(f"**農曆**：{lunar.year}年{lunar_month}月{lunar_day}日 {chinese_hour}")
+    st.write(f"**今日卦象**：{result}")
     st.write(f"**解釋**：{explanations.get(result, '無對應解釋')}")
 
 # 六種卦象解釋
