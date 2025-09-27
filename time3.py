@@ -50,7 +50,7 @@ def calculate_result(lunar_month, lunar_day, chinese_hour):
     return results[index]
 
 # Streamlit UI
-st.title("掐指一算")
+st.title("諸葛孔明 掐指神算")
 
 if st.button("開始科學預測"):
     now = datetime.now()
