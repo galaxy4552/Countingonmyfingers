@@ -73,7 +73,7 @@ if st.button("開始科學預測"):
 
 
 # 網頁下方說明文字
-st.markdown("""
+st.button("""
 ---
 
 ### 掐指一算說明
